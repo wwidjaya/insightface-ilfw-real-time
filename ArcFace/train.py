@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
 import os
 import sys
 import math
@@ -26,6 +25,7 @@ import fmobilenet
 import fmnasnet
 import fdensenet
 import vargfacenet
+
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -59,8 +59,7 @@ def parse_args():
         '--ckpt',
         type=int,
         default=default.ckpt,
-        help=
-        'checkpoint saving option. 0: discard saving. 1: save when necessary. 2: always save'
+        help='checkpoint saving option. 0: discard saving. 1: save when necessary. 2: always save'
     )
     parser.add_argument(
         '--verbose',
@@ -104,7 +103,7 @@ def get_symbol(args):
     all_label = mx.symbol.Variable('softmax_label')
     gt_label = all_label
     is_softmax = True
-    if config.loss_name == 'softmax':  #softmax
+    if config.loss_name == 'softmax':  # softmax
         _weight = mx.symbol.Variable("fc7_weight",
                                      shape=(config.num_classes,
                                             config.emb_size),
@@ -190,8 +189,8 @@ def get_symbol(args):
             an = anchor - negative
             ap = ap * ap
             an = an * an
-            ap = mx.symbol.sum(ap, axis=1, keepdims=1)  #(T,1)
-            an = mx.symbol.sum(an, axis=1, keepdims=1)  #(T,1)
+            ap = mx.symbol.sum(ap, axis=1, keepdims=1)  # (T,1)
+            an = mx.symbol.sum(an, axis=1, keepdims=1)  # (T,1)
             triplet_loss = mx.symbol.Activation(data=(ap - an +
                                                       config.triplet_alpha),
                                                 act_type='relu')
@@ -199,8 +198,8 @@ def get_symbol(args):
         else:
             ap = anchor * positive
             an = anchor * negative
-            ap = mx.symbol.sum(ap, axis=1, keepdims=1)  #(T,1)
-            an = mx.symbol.sum(an, axis=1, keepdims=1)  #(T,1)
+            ap = mx.symbol.sum(ap, axis=1, keepdims=1)  # (T,1)
+            an = mx.symbol.sum(an, axis=1, keepdims=1)  # (T,1)
             ap = mx.sym.arccos(ap)
             an = mx.sym.arccos(an)
             triplet_loss = mx.symbol.Activation(data=(ap - an +
@@ -346,12 +345,12 @@ def train_net(args):
     if config.net_name == 'fresnet' or config.net_name == 'fmobilefacenet':
         initializer = mx.init.Xavier(rnd_type='gaussian',
                                      factor_type="out",
-                                     magnitude=2)  #resnet style
+                                     magnitude=2)  # resnet style
     else:
         initializer = mx.init.Xavier(rnd_type='uniform',
                                      factor_type="in",
                                      magnitude=2)
-    #initializer = mx.init.Xavier(rnd_type='gaussian', factor_type="out", magnitude=2) #resnet style
+    # initializer = mx.init.Xavier(rnd_type='gaussian', factor_type="out", magnitude=2) #resnet style
     _rescale = 1.0 / args.ctx_num
     opt = optimizer.SGD(learning_rate=args.lr,
                         momentum=args.mom,
@@ -381,8 +380,8 @@ def train_net(args):
             results.append(acc2)
         return results
 
-    highest_acc = [0.0, 0.0]  #lfw and target
-    #for i in range(len(ver_list)):
+    highest_acc = [0.0, 0.0]  # lfw and target
+    # for i in range(len(ver_list)):
     #  highest_acc.append(0.0)
     global_step = [0]
     save_step = [0]
@@ -411,7 +410,7 @@ def train_net(args):
             is_highest = False
             if len(acc_list) > 0:
                 #lfw_score = acc_list[0]
-                #if lfw_score>highest_acc[0]:
+                # if lfw_score>highest_acc[0]:
                 #  highest_acc[0] = lfw_score
                 #  if lfw_score>=0.998:
                 #    do_save = True
@@ -424,7 +423,7 @@ def train_net(args):
                             is_highest = True
                             highest_acc[0] = score
                     highest_acc[-1] = acc_list[-1]
-                    #if lfw_score>=0.99:
+                    # if lfw_score>=0.99:
                     #  do_save = True
             if is_highest:
                 do_save = True
@@ -473,11 +472,5 @@ def train_net(args):
         epoch_end_callback=epoch_cb)
 
 
-def main():
-    global args
-    args = parse_args()
+def start_train(args):
     train_net(args)
-
-
-if __name__ == '__main__':
-    main()
