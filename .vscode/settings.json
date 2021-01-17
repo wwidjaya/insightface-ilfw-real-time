@@ -1,0 +1,11 @@
+{
+	"python.analysis.extraPaths": [
+		"./ArcFace",
+		"./ArcFace/common",
+		"./ArcFace/symbol",
+		"./modules"
+	],
+	"python.autoComplete.extraPaths": [
+	
+	]
+}
