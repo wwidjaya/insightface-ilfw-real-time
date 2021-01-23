@@ -25,16 +25,20 @@ import fmobilenet
 import fmnasnet
 import fdensenet
 import vargfacenet
+from util import CommonUtil as cu
 
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+cu.setup_logger(logging, 'train-ilfw.log')
+#logging.basicConfig(filename='train-ilfw.log', level=logging.INFO)
+
 
 args = None
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Train face network')
+    parser = argparse.ArgumentParser(description='Insightface Ilfw Model Training Script')
     # general
     parser.add_argument('--dataset',
                         default=default.dataset,
@@ -300,6 +304,7 @@ def train_net(args):
         context=ctx,
         symbol=sym,
     )
+    
     val_dataiter = None
 
     if config.loss_name.find('triplet') >= 0:
@@ -448,7 +453,7 @@ def train_net(args):
                 else:
                     mx.model.save_checkpoint(prefix, msave, model.symbol, arg,
                                              aux)
-            print('[%d]Accuracy-Highest: %1.5f' % (mbatch, highest_acc[-1]))
+            print('[%d] Accuracy-Highest: %1.5f' % (mbatch, highest_acc[-1]))
         if config.max_steps > 0 and mbatch > config.max_steps:
             sys.exit(0)
 

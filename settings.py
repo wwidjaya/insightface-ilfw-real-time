@@ -24,7 +24,6 @@ import sys
 import os
 import json
 
-
 def set_search_path():
   sys.path.insert(1, "./ArcFace")
   sys.path.insert(1, "./ArcFace/symbol")
@@ -33,11 +32,8 @@ def set_search_path():
   os.environ['MXNET_CUDNN_AUTOTUNE_DEFAULT'] = '0'
   os.environ['USE_CUDA'] = '1'
 
-
 def read_setting():
-
   SETTINGS_FILENAME = "./settings.json"
-
   settings = {}
 
   if os.path.exists(SETTINGS_FILENAME):

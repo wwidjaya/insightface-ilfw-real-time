@@ -1,4 +1,3 @@
-from mxnet.symbol.gen_op import argsort
 import settings
 from train import start_train, parse_args
 

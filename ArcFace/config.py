@@ -188,7 +188,7 @@ default.frequent = 20
 default.verbose = 2000
 default.kvstore = 'device'
 
-default.end_epoch = 10000
+default.end_epoch = 100
 default.lr = 0.1
 default.wd = 0.0005
 default.mom = 0.9
