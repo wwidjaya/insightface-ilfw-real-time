@@ -26,9 +26,9 @@ import json
 
 def set_search_path():
   sys.path.insert(1, "./ArcFace")
-  sys.path.insert(1, "./ArcFace/symbol")
-  sys.path.insert(1, "./ArcFace/common")
-  sys.path.insert(1, "./modules")
+  sys.path.insert(2, "./ArcFace/symbol")
+  sys.path.insert(3, "./ArcFace/common")
+  sys.path.insert(4, "./modules")
   os.environ['MXNET_CUDNN_AUTOTUNE_DEFAULT'] = '0'
   os.environ['USE_CUDA'] = '1'
 

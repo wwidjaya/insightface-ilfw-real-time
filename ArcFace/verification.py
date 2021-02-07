@@ -44,6 +44,7 @@ import mxnet as mx
 from mxnet import ndarray as nd
 
 
+
 class LFold:
     def __init__(self, n_splits=2, shuffle=False):
         self.n_splits = n_splits
@@ -584,28 +585,26 @@ def dumpR(data_set,
                     f,
                     protocol=pickle.HIGHEST_PROTOCOL)
 
-
-if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser(description='do verification')
+def parse_args():
+    parser = argparse.ArgumentParser(description='Perform Model Performance Verification')
     # general
-    parser.add_argument('--data-dir', default='', help='')
+    parser.add_argument('--data-dir', default='./ilfw', help='')
     parser.add_argument('--model',
-                        default='../model/softmax,50',
+                        default='./models/r100-arcface-emore/model,1',
                         help='path to load model.')
     parser.add_argument('--target',
-                        default='lfw,cfp_ff,cfp_fp,agedb_30',
-                        help='test targets.')
-    parser.add_argument('--gpu', default=0, type=int, help='gpu id')
+                        default='ilfw,ilfw-test',
+                        help='Testing targets')
+    parser.add_argument('--gpu', default=-1, type=int, help='gpu id')
     parser.add_argument('--batch-size', default=32, type=int, help='')
     parser.add_argument('--max', default='', type=str, help='')
     parser.add_argument('--mode', default=0, type=int, help='')
     parser.add_argument('--nfolds', default=10, type=int, help='')
     args = parser.parse_args()
-    #sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
-    #import face_image
-    #prop = face_image.load_property(args.data_dir)
-    #image_size = prop.image_size
+    return args
+
+
+def verify_model(args):
     image_size = [112, 112]
     print('image_size', image_size)
     ctx = mx.gpu(args.gpu)

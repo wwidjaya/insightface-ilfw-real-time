@@ -44,7 +44,7 @@ class FaceImageIter(io.DataIter):
                  label_name='softmax_label',
                  **kwargs):
         super(FaceImageIter, self).__init__()
-        assert path_imgrec
+        assert path_imgrec  
         assert shuffle
         logging.info('loading recordio %s...', path_imgrec)
         path_imgidx = path_imgrec[0:-4] + ".idx"

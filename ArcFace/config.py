@@ -6,7 +6,7 @@ config = edict()
 config.bn_mom = 0.9
 config.workspace = 256
 config.emb_size = 512
-config.ckpt_embedding = True
+config.ckpt_embedding = False # set to False to allow preTrained model to be save with parameter
 config.net_se = 0
 config.net_act = 'prelu'
 config.net_unit = 3
@@ -113,7 +113,7 @@ dataset = edict()
 dataset.emore = edict()
 dataset.emore.dataset = 'emore'
 dataset.emore.dataset_path = './ilfw'
-dataset.emore.num_classes = 406
+dataset.emore.num_classes = 640
 dataset.emore.image_shape = (112, 112, 3)
 dataset.emore.val_targets = ['ilfw', 'ilfw-test']
 
@@ -188,12 +188,12 @@ default.frequent = 20
 default.verbose = 2000
 default.kvstore = 'device'
 
-default.end_epoch = 100
-default.lr = 0.1
+default.end_epoch = 10000
+default.lr = 0.01
 default.wd = 0.0005
 default.mom = 0.9
 default.per_batch_size = 128
-default.ckpt = 3
+default.ckpt = 3 # 0: discard saving. 1: save when necessary. 2: always save. 3: save one model, prefix-0001.params
 default.lr_steps = '100000,160000,220000'
 default.models_root = './models'
 

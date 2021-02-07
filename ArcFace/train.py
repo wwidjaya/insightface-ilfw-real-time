@@ -26,6 +26,7 @@ import fmnasnet
 import fdensenet
 import vargfacenet
 from util import CommonUtil as cu
+import logging
 
 
 logger = logging.getLogger()
