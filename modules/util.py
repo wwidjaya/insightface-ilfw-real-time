@@ -1,6 +1,11 @@
 import time
 import os
+import datetime
 class CommonUtil:
+ 
+  @staticmethod
+  def get_date_prefix():
+        return datetime.datetime.now().strftime("%Y.%m.%d %H%M%S")
 
   @staticmethod
   def setup_logger(logging, log_file):
@@ -10,7 +15,7 @@ class CommonUtil:
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)sz %(name)s %(levelname)s: %(message)s',
                         datefmt='%m-%d %H:%M',
-                        filename=log_file,
+                        filename=(CommonUtil.get_date_prefix() + "-" + log_file),
                         filemode='w')
     # define a Handler which writes INFO messages or higher to the sys.stderr
     console = logging.StreamHandler()

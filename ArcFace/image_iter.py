@@ -39,7 +39,7 @@ class FaceImageIter(io.DataIter):
         super(FaceImageIter, self).__init__()
         assert path_imgrec
         if path_imgrec:
-            logging.info('loading recordio %s...', path_imgrec)
+            logger.info('loading recordio %s...', path_imgrec)
             path_imgidx = path_imgrec[0:-4] + ".idx"
             self.imgrec = recordio.MXIndexedRecordIO(path_imgidx, path_imgrec,
                                                      'r')  # pylint: disable=redefined-variable-type
