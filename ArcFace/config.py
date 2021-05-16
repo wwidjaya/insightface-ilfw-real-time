@@ -113,7 +113,7 @@ dataset = edict()
 dataset.emore = edict()
 dataset.emore.dataset = 'emore'
 dataset.emore.dataset_path = './ilfw'
-dataset.emore.num_classes = 640
+dataset.emore.num_classes = 80
 dataset.emore.image_shape = (112, 112, 3)
 dataset.emore.val_targets = ['ilfw', 'ilfw-test']
 

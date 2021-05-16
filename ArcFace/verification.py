@@ -598,7 +598,7 @@ def parse_args():
     # general
     parser.add_argument('--data-dir', default='./ilfw', help='')
     parser.add_argument('--model',
-                        default='./models/r100-arcface-emore/model,1',
+                        default='./models/model-r100-ii/model,1',
                         help='path to load model.')
     parser.add_argument('--target',
                         default='ilfw,ilfw-test',
